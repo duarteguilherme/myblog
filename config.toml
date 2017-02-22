@@ -1,7 +1,7 @@
 baseurl = "/"
 relativeurls = true
 languageCode = "en-us"
-title = "Lithium Theme"
+title = "Guilherme Duarte"
 theme = "hugo-bootstrap-premium"
 googleAnalytics = ""
 disqusShortname = ""
@@ -15,13 +15,13 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
     url = "/about/"
 [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/rstudio/blogdown"
+    url = "https://github.com/duarteguilherme"
 [[menu.main]]
     name = "Twitter"
-    url = "https://twitter.com/rstudio"
+    url = "https://twitter.com/guilhermejd1"
 
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "Este é o blog onde posto textos relacionados a Metodologia, Ciência de Dados, Política, Direito, Música, entre outros temas."
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.9.0"
