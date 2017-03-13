@@ -1,18 +1,25 @@
-baseurl = "/"
+baseurl = "http://duarteguilherme.github.io/"
 relativeurls = true
 languageCode = "en-us"
 title = "Guilherme Duarte"
-theme = "hugo-bootstrap-premium"
+theme = "hugo-lithium-theme"
 googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+buildDrafts = false
+
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = -100
+[[menu.main]]
     name = "About"
     url = "/about/"
+    weight = 110
 [[menu.main]]
     name = "GitHub"
     url = "https://github.com/duarteguilherme"
@@ -22,6 +29,15 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 
 [params]
     description = "Este é o blog onde posto textos relacionados a Metodologia, Ciência de Dados, Política, Direito, Música, entre outros temas."
+    navbarTitle = "Home"
+    socialAppearAtTop    = true
+    socialAppearAtBottom = true
+    # set this to the section name if section is not post
+    viewMorePostLink     = "/post/"
+
+    categoriesByCount    = true
+    includeReadingTime   = true
+
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.9.0"
