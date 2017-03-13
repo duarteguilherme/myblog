@@ -14,10 +14,38 @@ type: post
 
 # How to implement a simple gradient descent procedure in Rcpp
 
-In this post, we will implement a simple gradient descent function in c++ directly inside R, employing the package Rcpp. This post intends to show how sometimes c++ can be used to make code faster in some circumstances.
+In this post, we'll implement a simple gradient descent function in c++ directly inside R, employing the package Rcpp. This post intends to show how sometimes c++ can be used to make code faster in some circumstances.
 
-Gradient descent is an algorithm for optimization of functions with low peaks. This procedures tries 
+So let's get down to brass tacks. Gradient descent is an algorithm for optimization of functions with low peaks. This procedures tries to get to the local minimum of a function by iterating through the the proportional gradient of this function (if you don't get it, try Calculus 101, or read it on [Wikipedia](https://en.wikipedia.org/wiki/Gradient_descent)).
 
 
-Suppose a 
+Suppose a common logistic regression application.  Let's simulate some binary data: 
 
+```{r}
+n <- 1250000
+x <- rnorm(n)
+y <- 1/(1 + exp(-1.3 - 1.6 * x - rnorm(n)))
+y <- rbinom(n,1,y)
+```
+
+For the purpose of generating estimates for this logit regression, we need a cross-entropy function: $$D(S, L) = - \sum_{i=1}^n L_i * log(S_i)$$, such that $$S_i = logit(ax_i +b)$$
+
+In the context of [logistic regression](https://en.wikipedia.org/wiki/Cross_entropy#Cross-entropy_error_function_and_logistic_regression): $$\begin{equation}
+D(S,L) =   \\ -y log(S_i) - (1 - y)  log(1 - S_i)
+\end{equation}$$                                  
+Now we need to minimize the average cross-entropy function: $$L =   \frac{1}{N} D(S,L)$$
+
+We need the gradient for this function. We take for granted that $$\frac{\partial L}{\partial b} = \frac{1}{N}  \sum_{i=1}^{n} (S_i - y_i)$$ and 
+
+$$\frac{\partial L}{\partial a} = \frac{1}{N} \sum_{i=1}^{n} (S_i - y_i)x_i$$
+
+### Implementing a Gradient Descent Function in R
+
+In order to compare, we're implementing a Gradient Descent Function in R firstly. This function will receive data, a threshold, and values for a and b. Next, those functions will be updated until their difference were lesser than the threshold. Another important information: no for loops here, we're using recursion.
+
+```{r}
+gd_r <- function(data, threshold, a, b) {
+  
+}
+
+```
