@@ -35,17 +35,19 @@ D(S,L) =   \\ -y log(S_i) - (1 - y)  log(1 - S_i)
 \end{equation}$$                                  
 Now we need to minimize the average cross-entropy function: $$L =   \frac{1}{N} D(S,L)$$
 
-We need the gradient for this function. We take for granted that $$\frac{\partial L}{\partial b} = \frac{1}{N}  \sum_{i=1}^{n} (S_i - y_i)$$ and 
+We need the gradient for this function. We take for granted that $$\frac{\partial L}{\partial b} = \frac{1}{2N}  \sum_{i=1}^{n} (S_i - y_i)$$ and 
 
-$$\frac{\partial L}{\partial a} = \frac{1}{N} \sum_{i=1}^{n} (S_i - y_i)x_i$$
+$$\frac{\partial L}{\partial a} = \frac{1}{2N} \sum_{i=1}^{n} (S_i - y_i)x_i$$
 
 ### Implementing a Gradient Descent Function in R
 
 In order to compare, we're implementing a Gradient Descent Function in R firstly. This function will receive data, a threshold, and values for a and b. Next, those functions will be updated until their difference were lesser than the threshold. Another important information: no for loops here, we're using recursion.
 
 ```{r}
-gd_r <- function(data, threshold, a, b) {
-  
+gd_r <- function(y,x, threshold, a, b, lr) {
+  a_n <- a - lr*(1/length(y))*sum(a*x + b - y)*x
+  b_n <- a - lr*(1/length(y))*sum(a*x + b - y)*x
+  return(c(a_n,b_n))
 }
 
 ```
