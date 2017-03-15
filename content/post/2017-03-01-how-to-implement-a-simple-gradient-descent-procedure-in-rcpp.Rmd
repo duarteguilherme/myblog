@@ -1,13 +1,13 @@
 ---
-title: How to implement a simple gradient descent procedure in Rcpp
-date: '2017-03-01'
+title: "How to implement a simple gradient descent procedure in Rcpp"
 description: description
-draft: yes
+date: '2017-03-01'
 keywords:
-  - r
-  - rcpp
-  - algorithms
-  - machinelearning
+- r
+- rcpp
+- algorithms
+- machinelearning
+draft: yes
 topics: topic 1
 type: post
 ---
@@ -45,9 +45,32 @@ In order to compare, we're implementing a Gradient Descent Function in R firstly
 
 ```{r}
 gd_r <- function(y,x, threshold, a, b, lr) {
-  a_n <- a - lr*(1/length(y))*sum(a*x + b - y)*x
-  b_n <- a - lr*(1/length(y))*sum(a*x + b - y)*x
-  return(c(a_n,b_n))
+
+  # Updating values for a and b
+  a_n <- a - lr*(1/(2*length(y)))*sum( (1/(1+exp( -a*x - b)) - y)*x)
+  b_n <- b - lr*(1/(2*length(y)))*sum( 1/(1+exp( -a*x - b)) - y)
+
+  # Test if the difference between old and new values 
+  #   for a and b reached the threshold
+  if ( abs(a_n - a) < threshold & abs(b_n - b) < threshold )
+    return(c(a_n, b_n))
+    
+  # Recursion
+  gd_r(y,x,threshold,a_n,b_n, lr)
 }
 
 ```
+
+Let's check if it's working for a threshold of .0001, a learning rate of .9, and initial values for a and b, .5.
+
+```{r}
+  gd_r(y,x,.0001, .5,.5,.9) 
+```
+
+### Implementing Gradient Descent in C++
+
+Now I'll implement the same function, but in c++ directly in R. This can be done using the package Rcpp. For more references, check out [Hadley Wickham's book](http://adv-r.had.co.nz/Rcpp.html). 
+
+We just need to define our function
+
+
